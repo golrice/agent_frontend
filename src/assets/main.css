@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/*
+导航栏（Navigation）
+背景用 #F5F7FA（Base），
+当前激活项用 Primary，
+悬停态用 Hover，
+图标线条用 Secondary，
+字体建议保持 Text 色，强化阅读稳定性。
+
+主操作按钮（Primary Action）
+背景 Primary，文字 #FFFFFF，
+Hover 时使用 Hover，
+Disabled 状态降低透明度（opacity: 0.5）。
+
+次要按钮（Secondary Button）
+边框 Secondary，文字同 Secondary，
+Hover 时轻微提亮。
+用于非关键操作，如“更多”“查看详情”。
+
+告警与状态卡片（Alert / Status）
+成功（Success） → 背景浅绿（#E9F3EB），边框 #7BAE7F
+警告（Warn） → 背景浅黄（#FAF6E8），边框 #D5B867
+错误（Error） → 背景浅红（#F8EBEB），边框 #C17878
+信息（Info） → 背景浅蓝灰（#E8F0F6），边框 #70A0C0
+*/
+
+@theme {
+    --color-primary: #4b91c2;
+    --color-secondary: #6cb7a5;
+
+    --color-warn: #d5b867;
+    --color-success: #7bae7f;
+    --color-error: #c17878;
+    --color-info: #70a0c0;
+
+    --color-base: #f5f7fa;
+    --color-text: #1e293b;
+    --color-border: #cbd5e1;
+    --color-hover: #5aa0d0;
+}
