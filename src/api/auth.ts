@@ -1,14 +1,32 @@
 import request from "@/api/request";
+import type { User } from "@/stores/user";
 
 export const loginApi = (data: {
-  full_name: string;
+  username: string;
   password: string;
   email: string;
 }) => {
   const formData = new FormData();
-  formData.append("full_name", data.full_name);
+  formData.append("username", data.email);
   formData.append("password", data.password);
-  formData.append("email", data.email);
 
-  return request.post("/users/login", formData);
+  return request.post("/login/access-token", formData);
+};
+
+export const signupApi = (data: {
+  username: string;
+  password: string;
+  email: string;
+}) => {
+  return request.post("/users/signup", data);
+};
+
+export const fetchLatestUserApi = async () => {
+  try {
+    const { data } = await request.get<User>("/users/me");
+    return data;
+  } catch (e: any) {
+    console.log("error with ", e);
+    throw e;
+  }
 };

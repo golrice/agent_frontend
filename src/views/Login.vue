@@ -14,9 +14,8 @@
             >
                 <el-form-item label="用户名" prop="username">
                     <el-input
-                        v-model="form.full_name"
+                        v-model="form.username"
                         placeholder="请输入用户名"
-                        clearable
                     />
                 </el-form-item>
 
@@ -29,11 +28,7 @@
                 </el-form-item>
 
                 <el-form-item label="邮箱" prop="email">
-                    <el-input
-                        v-model="form.email"
-                        placeholder="请输入邮箱"
-                        show-password
-                    />
+                    <el-input v-model="form.email" placeholder="请输入邮箱" />
                 </el-form-item>
 
                 <el-form-item>
@@ -66,7 +61,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/stores/user";
-import { loginApi } from "@/api/auth";
+import { fetchLatestUserApi, loginApi } from "@/api/auth";
+import { token_name } from "@/constants/base";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -75,13 +71,13 @@ const formRef = ref();
 const loading = ref(false);
 
 const form = ref({
-    full_name: "",
+    username: "",
     password: "",
     email: "",
 });
 
 const rules = {
-    full_name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+    username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
     password: [{ required: true, message: "请输入密码", trigger: "blur" }],
     email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
 };
@@ -93,8 +89,11 @@ const handleLogin = async () => {
 
         try {
             const res = await loginApi(form.value);
+            localStorage.setItem(token_name, res.data.access_token);
 
-            userStore.setUser(res.data);
+            const user_info = await fetchLatestUserApi();
+            userStore.setUser(user_info);
+            console.log(user_info);
 
             ElMessage.success("登录成功");
             router.push("/");

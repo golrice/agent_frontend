@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { Finished } from "@element-plus/icons-vue";
 import { useUserTalk } from "@/stores/user";
-import { watch, ref } from "vue";
+import { ref } from "vue";
 import talkBorder from "@/components/talkBorder.vue";
 
 const userTalk = useUserTalk();

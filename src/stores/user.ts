@@ -1,5 +1,23 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref, watch, type Ref } from "vue";
+
+export type User = {
+  id: string;
+  email: string;
+  username: string;
+  is_active: boolean;
+  is_superuser: boolean;
+};
+
+function createDefaultUser(): User {
+  return {
+    id: "",
+    email: "",
+    username: "",
+    is_active: false,
+    is_superuser: false,
+  };
+}
 
 export const useUserTalk = defineStore("userTalk", () => {
   const text = ref("");
@@ -8,15 +26,17 @@ export const useUserTalk = defineStore("userTalk", () => {
 });
 
 export const useUserStore = defineStore("user", () => {
-  const user = ref(null);
+  const user = ref<User>(createDefaultUser());
 
-  function setUser(payload: any) {
+  const isLoginIn = computed(() => user.value.id !== "");
+
+  function setUser(payload: User) {
     user.value = payload;
   }
 
   function logout() {
-    user.value = null;
+    user.value.id = "";
   }
 
-  return { user, setUser, logout };
+  return { user, isLoginIn, setUser, logout };
 });

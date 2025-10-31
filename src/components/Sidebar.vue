@@ -27,12 +27,7 @@
             </ul>
         </el-main>
         <el-footer class="flex! w-full justify-center">
-            <el-button
-                type="info"
-                round
-                class="m-1"
-                @click="router.push('/login')"
-            >
+            <el-button type="info" round class="m-1" @click="handlePersonal">
                 个人
             </el-button>
         </el-footer>
@@ -41,12 +36,15 @@
 
 <script setup>
 import { Comment, Menu, Switch } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 import { useSidebarStore } from "@/stores/sidebar";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 
+const user = useUserStore();
 const sidebarStore = useSidebarStore();
 const borderText = ref("侧边栏关闭");
 
@@ -75,6 +73,15 @@ const buttons = ref([
     },
     { name: "模型控制", text: "模型选择", icon: Menu },
 ]);
+
+const handlePersonal = () => {
+    if (!user.isLoginIn) {
+        router.push("/login");
+        return;
+    }
+
+    router.push("/profile");
+};
 </script>
 
 <style scoped></style>
