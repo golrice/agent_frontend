@@ -7,8 +7,9 @@ import UserProfile from "@/views/UserProfile.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/:session_id?",
     component: TalkView,
+    props: true,
   },
   { path: "/login", component: Login },
   { path: "/register", component: RegisterView },

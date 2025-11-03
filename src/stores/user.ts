@@ -22,7 +22,15 @@ function createDefaultUser(): User {
 export const useUserTalk = defineStore("userTalk", () => {
   const text = ref("");
 
-  return { text };
+  const setText = (s: string) => {
+    text.value = s;
+  };
+
+  const isEmpty = () => {
+    return text.value == "";
+  };
+
+  return { text, isEmpty, setText };
 });
 
 export const useUserStore = defineStore("user", () => {

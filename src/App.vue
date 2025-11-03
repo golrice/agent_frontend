@@ -3,7 +3,7 @@
         <el-aside id="sidebarBoard" class="h-full border-border!" :width="1">
             <Sidebar />
         </el-aside>
-        <el-container>
+        <el-container class="h-full">
             <router-view />
         </el-container>
     </el-container>
@@ -11,7 +11,6 @@
 
 <script setup>
 import Sidebar from "@/components/Sidebar.vue";
-import TalkView from "@/views/TalkView.vue";
 </script>
 
 <style scoped>
